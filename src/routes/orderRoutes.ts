@@ -6,11 +6,11 @@ const router = express.Router()
 
 router.patch('/', async (req, res) => {
 	try {
-		let order = req.body.order
+		let data = req.body.data
 		let id = req.body.id
-		let data = await updateOrder(id, order)
+		let response = await updateOrder(id, data)
 		let result = {}
-		if (data > 0) {
+		if (response > 0) {
 			result = await findOrderById(id)
             if(result) return res.status(200).json({success : true, data : result})
 		}
