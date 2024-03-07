@@ -23,44 +23,38 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "baseUrl": "src",
-    "paths": {
-      "@/*": [
-        "*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@controllers/*": [
-        "controllers/*"
-      ],
-      "@databases/*": [
-        "databases/*"
-      ],
-      "@dtos/*": [
-        "dtos/*"
-      ],
-      "@exceptions/*": [
-        "exceptions/*"
-      ],
-      "@interfaces/*": [
-        "interfaces/*"
-      ],
-      "@middlewares/*": [
-        "middlewares/*"
-      ],
-      "@models/*": [
-        "models/*"
-      ],
-      "@routers/*": [
-        "routers/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ]
-    }
+    // "paths": {
+    //   "@/*": [
+    //     "*"
+    //   ],
+    //   "@controllers/*": [
+    //     "controllers/*"
+    //   ],
+    //   "@db/*": [
+    //     "src/db/*"
+    //   ],
+    //   "@interfaces/*": [
+    //     "interfaces/*"
+    //   ],
+    //   "@middlewares/*": [
+    //     "middlewares/*"
+    //   ],
+    //   "@models/*": [
+    //     "models/*"
+    //   ],
+    //   "@types/*": [
+    //     "types/*"
+    //   ],
+    //   "@routers/*": [
+    //     "routers/*"
+    //   ],
+    //   "@services/*": [
+    //     "services/*"
+    //   ],
+    //   "@utils/*": [
+    //     "utils/*"
+    //   ]
+    // }
   },
   "include": [
     "src//*.ts",

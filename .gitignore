@@ -4,3 +4,5 @@ out
 build
 *.log*
 .env
+executeable
+database
