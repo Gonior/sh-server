@@ -3,23 +3,6 @@ import { searchMenu, createMenu, deleteMenu, findAllMenus, updateMenu, searchMen
 import { Menu } from '../types'
 const router = express.Router()
 
-
-router.post('/',  async (req, res) => {
-	try {
-		let data : Menu = req.body.data
-		let menu = await createMenu(data)
-		if (menu) res.status(200).json({ success: true, data: menu })
-	} catch (error) {
-		let message = ''
-		if (error.errorType === 'uniqueViolated')
-			message = `UPC tersebut sudah digunakan, gunakan UPC lain!`
-		else message = error.message
-		res.status(500).json({ success: false, message: message })
-	}
-})
-
-
-
 router.get('/',  async (req, res) => {
 	//done
 	try {
@@ -30,11 +13,25 @@ router.get('/',  async (req, res) => {
 	}
 })
 
-router.patch('/',  async (req, res) => {
+router.post('/',  async (req, res) => {
 	try {
-		let menu : Menu = req.body.data
-		let id : string = req.body.id
-		let response = await updateMenu(id, menu)
+		let {name, upc, category, price} = req.body
+		let menu = await createMenu({name, upc, category, price})
+		if (menu) res.status(200).json({ success: true, data: menu })
+	} catch (error) {
+		let message = ''
+		if (error.errorType === 'uniqueViolated')
+			message = `UPC tersebut sudah digunakan, gunakan UPC lain!`
+		else message = error.message
+		res.status(500).json({ success: false, message: message })
+	}
+})
+
+router.patch('/:id',  async (req, res) => {
+	try {
+		let {name, upc, category, price} = req.body
+		let id : string = req.params['id']
+		let response = await updateMenu(id, {name, upc, category, price})
 		if (response > 0)
 			res.status(200).json({
 				success: true,
@@ -50,9 +47,9 @@ router.patch('/',  async (req, res) => {
 		res.status(500).json({ success: false, message: message })
 	}
 })
-router.delete('/',  async (req, res) => {
+router.delete('/:id',  async (req, res) => {
 	try {
-		let id = req.body.id
+		let id = req.params['id']
         let menu : Menu = await searchMenu(id)
         if( !menu) return res.status(400).json({ success: false, message: `Menu tidak ada dalam database` })
 		let response = await deleteMenu(id)

@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-		let data = req.body.data
-		let user = await creatUser(data)
+		let {name, passcode }= req.body
+		let user = await creatUser({name, passcode})
 		if (user) res.status(200).json({ success: true, data: user })
         else res.status(400).json({ success: false, message: 'Tidak dapat membuat pengguna baru'})
 	} catch (error) {
@@ -29,9 +29,9 @@ router.post('/', async (req, res) => {
 	}
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-		let id : string = req.body.id
+		let id : string = req.params['id']
         if (id === ADMIN._id) return res.status(400).json({success : false, message : "Admin Tidak Dapat Dihapus"})
         let user : User = await findOneUser(id)
         if( !user ) return res.status(400).json({success : false, message : "Pegguna tidak ada dalam database"})

@@ -26,7 +26,7 @@ app.use('/login',loginRoute)
 app.use('/user',authenticationToken, userRoute)
 app.use('/category',authenticationToken, categoryRoute)
 app.use('/menu',authenticationToken, menuRoute)
-app.use('/acitivity',authenticationToken, activityRoute)
+app.use('/activity',authenticationToken, activityRoute)
 app.use('/order',authenticationToken, orderRoute)
 
 export default app

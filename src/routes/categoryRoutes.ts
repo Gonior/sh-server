@@ -17,20 +17,20 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 	// done
 	try {
-		let data : Category = req.body.data
-		let category = await createCategory(data)
+		let {name, printer} = req.body
+		let category = await createCategory({name, printer})
 		if (category) res.status(200).json({ success: true, data: category })
 	} catch (error) {
 		res.status(500).json({ success: false, message: error.message })
 	}
 })
 
-router.patch('/', async (req, res) => {
+router.patch('/:id', async (req, res) => {
 	//done
 	try {
-		let category : Category = req.body.data
-		let id : string = req.body.id
-		let response = await updateCategory(id, category)
+		let {name, printer} = req.body
+		let id : string = req.params['id']
+		let response = await updateCategory(id, {name, printer})
 		if (response > 0)
 			res.status(200).json({
 				success: true,
@@ -46,14 +46,12 @@ router.patch('/', async (req, res) => {
 	}
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 	//done
 	try {
-		let id = req.body.id
-
+		let id = req.params['id']
 		let menu = await searchMenuQuery({ category: id })
 		if (id === DEFAULT_CATEGORY._id) return res.status(400).json({success : false, message : 'Kategori bawaan tidak dapat dihapus' })
-
 		if (menu.length > 0) return res.status(400).json({
 			success: false,
 			message: 'Kategori tidak dapat dihapus, karena ada menu yang menggunakan kategori tersebut!'

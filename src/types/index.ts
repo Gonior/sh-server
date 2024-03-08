@@ -16,7 +16,7 @@ export interface Printer {
 }
 
 export interface Category {
-    _id : string,
+    _id : string | undefined,
     name : string,
     printer : Printer | undefined | string
 }
@@ -32,7 +32,7 @@ export interface MenuOrders {
     name : string,
     upc : number | null,
     category : string | Category,
-    price : number
+    price : number,
     total : number,
     forId : string | undefined,
     qty : number,
@@ -41,6 +41,7 @@ export interface MenuOrders {
 }
 export interface Order {
     _id : string,
+    user : User,
     customer : string,
     invoice : string,
     subtotal : number,
@@ -50,6 +51,7 @@ export interface Order {
     downpayment : number,
     grandtotal : number,
     totalitems : number,
+    updateAt : Date,
     status : Status
     orders : MenuOrders[]
 }
