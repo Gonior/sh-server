@@ -1,5 +1,5 @@
 import {User, Store} from './index'
-
+import { join } from 'path'
 export const DEFAULT_CATEGORY = {
     _id : 'defaultcategory',
     name : 'Umum',
@@ -23,4 +23,8 @@ export const DEFAULT_STORE_INFO : Store = {
     holder : 'Nama Anda',
     norek : '1234567890'
     
+}
+
+export const envConfig = {
+    path : join(process.cwd(), '.env')
 }

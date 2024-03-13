@@ -9,7 +9,7 @@ import { insertActivities } from './controllers/activityController'
 import generateActivities from './utils/generateActivities'
 import { Record, Acitivity} from './types'
 import app from '.'
-
+import {} from 'node-windows'
 const PORT = process.env.PORT || 8000
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
@@ -23,6 +23,7 @@ io.use(authenticationToken)
 
 io.on('connection', (socket) => {
 	socket.on('orders', async (order) => {
+		// console.log(order)
 		try {
 			let response = await createtOrder(order)
 			if (response) {
@@ -69,6 +70,7 @@ io.on('connection', (socket) => {
 				}
 			}
 		} catch (error) {
+			
 			io.emit('error', error)
 		}
 	})

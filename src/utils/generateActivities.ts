@@ -76,7 +76,7 @@ const generateActivities = (initValue: Order , newValue :Order, user :User) => {
 			}
 		}
 		if(activities.length > 0) {
-            recordingActivity = {_id : null, orderId : initValue._id, user, records : activities, createdAt : new Date()}
+            recordingActivity = { orderId : initValue._id, user, records : activities, createdAt : new Date()}
             return recordingActivity
         } else return 
 

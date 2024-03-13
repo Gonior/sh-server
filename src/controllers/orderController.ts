@@ -1,7 +1,7 @@
 import {orderDb} from '../db'
 import type {Order} from '../types'
 
-export const createtOrder = (data : Order) : Promise<Order> => {
+export const createtOrder = (data : Order) : Promise<any> => {
 	return new Promise((resolve, reject) => {
 		orderDb.insert(data, (err, doc : Order) => {
 			err ? reject(err) : resolve(doc)

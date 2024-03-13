@@ -5,12 +5,15 @@ import { Order } from 'types'
 
 const router = express.Router()
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
 	//done
 	try {
-		let today = new Date(req.body.today)
-		let data = await findAllOrdersByDate(today)
-		res.status(200).json({success : true, data})
+		let datestring = req.query['date'] as string
+		let date = new Date(datestring)
+		if(isFinite(+date)) {
+			let data = await findAllOrdersByDate(date)
+			res.status(200).json({success : true, data})
+		} else res.status(400).json({success : false, message : 'Format tanggal salah'})
 	} catch (error) {
 		res.status(500).json({ success: false, message: error.message })
 	}

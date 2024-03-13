@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv'
-dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -13,6 +12,8 @@ import storeInforRoute from './routes/storeInfoRoutes'
 import tempRoute from './routes/tempRoutes'
 import authenticationToken from './middleware/authToken'
 import dbDefault from './utils/dbDefault'
+import {envConfig} from './types/constant'
+dotenv.config(envConfig)
 const app = express()
 try {
     dbDefault()
@@ -34,7 +35,8 @@ app.use('/activity',authenticationToken, activityRoute)
 app.use('/order',authenticationToken, orderRoute)
 app.use('/store',authenticationToken, storeInforRoute)
 app.use('/temp', authenticationToken, tempRoute )
-
+console.log(process.env.SECRET_KEY)
+console.log(__dirname)
 export default app
 
 

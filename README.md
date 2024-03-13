@@ -513,13 +513,11 @@ interface Record {
 
 -----------
 ## Get Order by date
-Endpoit : `POST` `/order`
+Endpoit : `POST` `/order?date=YYYY-MM-DD`
 
 ### Request Body
 ```json
-{
-    "today" : "datestring" // ex. "29-2-2024"
-}
+{}
 ```
 
 ### Responses : status `200`

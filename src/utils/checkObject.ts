@@ -12,7 +12,7 @@ function checkObject<T extends MenuOrders|Order> (obj1 :T, obj2 : T, prop : stri
 			else propname = "Catatan"
 		}
 		break;
-		case "downpayment": propname = "DP"
+		case "downpayment": propname = "Uang Muka"
 		break;
 		case "discount": propname = "Diskon"
 		break;
@@ -29,7 +29,7 @@ function checkObject<T extends MenuOrders|Order> (obj1 :T, obj2 : T, prop : stri
             action: 'Mengubah',
             props : propname,
 			item : 'pesanan',
-			value : `${obj2[prop]} -> ${obj2[prop]}`
+			value : obj2[prop]
         }
 		if(Object.prototype.hasOwnProperty.call(obj1, "name")) {
 			if(!obj1['forId']) record.item = obj1['name'] 
