@@ -1,7 +1,7 @@
 import express from 'express'
 import { createCategory, deleteCategory, findAllCategories, searchCategory, updateCategory} from '../controllers/categoryController'
-import { searchMenu, searchMenuQuery } from '../controllers/menuController'
-import { Category } from '../types'
+import { searchMenuQuery } from '../controllers/menuController'
+// import { Category } from '../types'
 import { DEFAULT_CATEGORY } from '../types/constant'
 const router = express.Router()
 

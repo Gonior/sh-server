@@ -7,7 +7,10 @@ function checkObject<T extends MenuOrders|Order> (obj1 :T, obj2 : T, prop : stri
 		break;
 		case "price": propname = "Harga"
 		break;
-		case "name": propname = "Nama Menu"
+		case "name": {
+			if(!obj1['forId']) propname = "Nama Menu"
+			else propname = "Catatan"
+		}
 		break;
 		case "downpayment": propname = "DP"
 		break;
@@ -23,21 +26,18 @@ function checkObject<T extends MenuOrders|Order> (obj1 :T, obj2 : T, prop : stri
 	}
 	if(obj1[prop] !== obj2[prop] && prop !== propname) {
         let record : Record = {
-            action: 'update',
-            name: undefined,
-            prop: undefined,
-            from: undefined,
-            to: undefined,
-            qty: undefined,
-            type: undefined,
-            forId: undefined,
-            item: undefined
+            action: 'Mengubah',
+            props : propname,
+			item : 'pesanan',
+			value : `${obj2[prop]} -> ${obj2[prop]}`
         }
-		if(Object.prototype.hasOwnProperty.call(obj1, "name")) record.name = obj1['name'] 
-		record.prop = propname
-		record.action = "update"
-		record.from = obj1[prop]
-		record.to = obj2[prop]
+		if(Object.prototype.hasOwnProperty.call(obj1, "name")) {
+			if(!obj1['forId']) record.item = obj1['name'] 
+			else {
+				record.item = obj2['name']
+			}
+		}
+		
         return record
 	} else return
 	

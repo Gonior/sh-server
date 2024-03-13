@@ -4,7 +4,7 @@ import { User } from 'types'
 dotenv.config()
 
 const authenticationToken = (socket, next) => {
-    const SECRET_KEY : string = process.env.SECRET_KEY || 'cnqo[ewiqq[ncouqoewiyqwebvq[ew0'
+    const SECRET_KEY : string = process.env.SECRET_KEY
     const Authorization = socket.handshake.auth?.token || socket.handshake.headers?.token || null;
 	if (Authorization){
 		jwt.verify(Authorization, SECRET_KEY, function(err, decoded : User) {

@@ -1,6 +1,7 @@
 import express from 'express'
 import { updateBatchOrderStatus, updateOrder, findAllOrdersByDate,findLastOrder, findOrderById,findOrdersById, findOrdersNotPaid } from '../controllers/orderController'
 import { findEditing } from '../controllers/tempController'
+import { Order } from 'types'
 
 const router = express.Router()
 
@@ -37,15 +38,20 @@ router.get('/notPaid', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
 	try {
+		let message = "Tidak dapat merperbarui pesanan"
 		let {customer, _id, invoice, subtotal, user, tax, discount, grandtotal, orders, createdAt, updateAt, downpayment, totalitems, status  } = req.body
 		let id = req.params['id']
-		let response = await updateOrder(id, {customer,_id, invoice, subtotal, tax, discount, grandtotal, orders, createdAt, updateAt, totalitems, status, downpayment, user })
-		let result = {}
-		if (response > 0) {
-			result = await findOrderById(id)
-            if(result) return res.status(200).json({success : true, data : result})
+		let oldData = await findOrderById(id)
+		if( oldData.status === "tunda" || oldData.status === "arsip") {
+			let response = await updateOrder(id, {customer,_id, invoice, subtotal, tax, discount, grandtotal, orders, createdAt, updateAt, totalitems, status, downpayment, user })
+			
+			if (response > 0) {
+				let result : Order = await findOrderById(id)
+				if( result ) return res.status(200).json({success : true, data : result})
+			}
 		}
-        res.status(400).json({ success: false, message: "Tidak dapat merperbarui pesanan" })
+		else message = "Pesanan yang sudah lunas/cancel tidak dapat diubah!"
+        res.status(400).json({ success: false, message: message})
 	} catch (error) {
 		res.status(500).json({ success: false, message: error.message })
 	}
@@ -54,7 +60,7 @@ router.patch('/:id', async (req, res) => {
 router.get('/batch', async (req, res) => {
 	//done
 	try {
-		let query = req.query['arrayId'] ?? ""
+		let query = req.query['arrayId'] as string ?? ""
 		let membersId = []
 		if( query ) {
 			membersId = [...query.split(',')]
@@ -70,7 +76,7 @@ router.post('/batch', async (req, res) => {
 	//done
 	try {	
 		let status = req.body.status
-		let query = req.query['arrayId'] ?? ""
+		let query = req.query['arrayId'] as string ?? ""
 		let arrayId = []
 		if(query) {
 			arrayId = [...query.split(',')]

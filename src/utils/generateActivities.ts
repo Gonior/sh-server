@@ -32,49 +32,31 @@ const generateActivities = (initValue: Order , newValue :Order, user :User) => {
 		if(addOrders.length > 0) {
 			addOrders.forEach((order) => {
 				let record : Record = {
-                    action: "create",
-                    name: undefined,
-                    qty: undefined,
-                    type: undefined,
-                    forId: undefined,
-                    prop: undefined,
-                    from: undefined,
-                    to: undefined,
-                    item: undefined
+                    action: "Menambahkan",
+					value : ''
                 }
-				record.action = "add"
-				record.name = order.name
-				record.type = order.qty ? "menu" : 'note'
-				if(record.type === "note") {
-					record.forId = order.forId
-					record.item = newValue.orders.find(o => o._id === record.forId)?.name
+				if(!order.forId) {
+					record.prefix = 'menu' 
+					record.value = `${order.qty} ${order.name}`
+				} else {
+					record.prefix = 'catatan menu '+ newValue.orders.find(o => o._id === order.forId)?.name
+					record.value = order.name
 				}
-				record.qty = order.qty ? order.qty : undefined
 				activities.push(record)
 			})
 		}
 		if(deletedOrders.length > 0) {
 			deletedOrders.forEach((order) => {
 				let record : Record = {
-                    item: undefined,
-                    action: "delete",
-                    name: undefined,
-                    qty: undefined,
-                    type: undefined,
-                    forId: undefined,
-                    prop: undefined,
-                    from: undefined,
-                    to: undefined
+                    action: "Menghapus",
+					value : ''
                 }
-				record.action = "delete"
-				record.name = order.name
-				if(order.forId) {
-					record.type = 'note'
-					record.forId = order.forId
-					record.item = initValue.orders.find(o => o._id === record.forId)?.name
+				if(!order.forId) {
+					record.prefix = 'menu' 
+					record.value = `${order.qty} ${order.name}`
 				} else {
-					record.type = "menu"
-					record.qty = order.qty
+					record.prefix = 'catatan menu '+ newValue.orders.find(o => o._id === order.forId)?.name
+					record.value = order.name
 				}
 				activities.push(record)
 			})
@@ -83,10 +65,13 @@ const generateActivities = (initValue: Order , newValue :Order, user :User) => {
 			let fromOrder = initValue.orders.filter(order => sameOrdersId.indexOf(order._id) !== -1)
 			let toOrder = newValue.orders.filter(order => sameOrdersId.indexOf(order._id) !== -1)
 			for(let i = 0; i<fromOrder.length;i++) {
-				for(let prop in fromOrder[i]) {
+				for(let prop in toOrder[i]) {
 					let test = checkObject(fromOrder[i], toOrder[i], prop)
-					if(test) activities.push(test)
-
+					
+					if(test) {
+						if (toOrder[i].forId) test.item = toOrder.find(order => order._id === test.item)?.name 
+						activities.push(test)
+					}
 				}
 			}
 		}
@@ -99,9 +84,6 @@ const generateActivities = (initValue: Order , newValue :Order, user :User) => {
 
 		return
 	}
-
-
-
 }
 
 export default generateActivities

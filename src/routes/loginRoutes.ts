@@ -7,7 +7,7 @@ import { loginUser} from '../controllers/userController'
 const router = express.Router()
 
 router.post('/',  async (req, res) => {
-	const SECRET_KEY = process.env.SECRET_KEY || 'cnqo[ewiqq[ncouqoewiyqwebvq[ew0'
+	const SECRET_KEY = process.env.SECRET_KEY
 	try {
 		let passcode = req.body.passcode
 		let user = await loginUser(passcode)

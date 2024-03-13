@@ -6,7 +6,7 @@ import { Server } from 'socket.io'
 import authenticationToken from './middleware/socketMiddleware'
 import { createtOrder, updateOrder, findOrderById } from './controllers/orderController'
 import { insertActivities } from './controllers/activityController'
-import { generateActivities } from './utils'
+import generateActivities from './utils/generateActivities'
 import { Record, Acitivity} from './types'
 import app from '.'
 
@@ -28,28 +28,20 @@ io.on('connection', (socket) => {
 			if (response) {
 				let activity : Acitivity = {
                     orderId: response._id,
-                    user: socket.decoded,
+                    user: (socket as any).decoded,
                     records: [],
-                    _id: null,
                     createdAt: new Date()
                 }
 				let record : Record = {
-                    item: undefined,
-                    action: 'create',
-                    name: undefined,
-                    qty: undefined,
-                    type: undefined,
-                    forId: undefined,
-                    prop: undefined,
-                    from: undefined,
-                    to: undefined
+                    action: 'Membuat',
+					prefix : 'pesanan',
+					value : response.invoice
                 }
-				record.action = "create"
 				activity.records.push(record)
 				await insertActivities(activity)
 				io.emit('orders', response)
 			}
-			else io.emit('error', "Gagal Memasukan data")
+			else io.emit('error', "Gagal memasukan pesanan!")
 		} catch (err) {
 			io.emit('error', err)
 		}
@@ -65,7 +57,7 @@ io.on('connection', (socket) => {
 					if (response > 0) {
 						let newData = await findOrderById(data.id)
 						if(newData) {
-							let activity = generateActivities(oldData, newData, socket.decoded)
+							let activity = generateActivities(oldData, newData, (socket as any).decoded)
 							if(activity) {
 								await insertActivities(activity)
 							}
@@ -82,7 +74,7 @@ io.on('connection', (socket) => {
 	})
 })
 
-//Listing to the app and running it on PORT 5000
 httpServer.listen(PORT, async () => {
     console.log(`[server] server is running at http://localhost:${PORT}`)
 })
+

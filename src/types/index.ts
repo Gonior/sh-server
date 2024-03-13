@@ -1,7 +1,7 @@
 type Connectivity = "local" | 'network'
-type Action = 'create' | 'update' | 'delete' | 'add'
-type TypeDoing = 'note' | 'menu'
+type Action = 'Membuat' | 'Menghapus' | 'Menambahkan' | 'Mengubah'
 type Status = 'tunda' | 'lunas' | 'arsip' | 'cancel'
+
 export interface User {
     _id : string,
     name : string,
@@ -57,22 +57,30 @@ export interface Order {
 }
 
 export interface Record {
-    item: string | undefined,
     action : Action,
-    name : string | undefined,
-    qty : undefined | number,
-    type : TypeDoing | undefined
-    forId : string | undefined
-    prop : string | undefined,
-    from : any | undefined,
-    to : any | undefined
-    
-    
+    value : any
+    prefix? : 'pesanan' | 'menu' | 'catatan' | string
+    props? : string
+    item? : 'pesanan' | string
 }
+
 export interface Acitivity {
-    _id : string|null,
+    _id?: string,
     user : User,
     createdAt : Date,
     records : Record[]
     orderId : string
+}
+
+export interface Store {
+    _id : 'storeid'
+    name : string
+    address : string
+    phone : string
+    mobilePhone? : string
+    footerNote : string
+    norek : string | number
+    holder : string
+    bank : string
+    
 }

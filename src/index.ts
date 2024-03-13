@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-import { validateEnv } from './utils'
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -10,11 +9,16 @@ import categoryRoute from './routes/categoryRoutes'
 import menuRoute from './routes/menuRoutes'
 import orderRoute from './routes/orderRoutes'
 import activityRoute from './routes/activityRoutes'
+import storeInforRoute from './routes/storeInfoRoutes'
+import tempRoute from './routes/tempRoutes'
 import authenticationToken from './middleware/authToken'
+import dbDefault from './utils/dbDefault'
 const app = express()
-
-validateEnv()
-
+try {
+    dbDefault()
+} catch (error) {
+    console.log(error)
+}
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
@@ -28,6 +32,8 @@ app.use('/category',authenticationToken, categoryRoute)
 app.use('/menu',authenticationToken, menuRoute)
 app.use('/activity',authenticationToken, activityRoute)
 app.use('/order',authenticationToken, orderRoute)
+app.use('/store',authenticationToken, storeInforRoute)
+app.use('/temp', authenticationToken, tempRoute )
 
 export default app
 

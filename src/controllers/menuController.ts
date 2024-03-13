@@ -18,7 +18,7 @@ export const searchMenu = (id : string) : Promise<Menu>=> {
 	})
 }
 
-export const createMenu = (data : Menu) : Promise<Menu> => {
+export const createMenu = (data) : Promise<Menu> => {
 	return new Promise((resolve, reject) => {
 		menuDb.insert(data, (err, doc : Menu) => {
 			err ? reject(err) : resolve(doc)
@@ -42,7 +42,7 @@ export const deleteMenu = (id : string) : Promise<number> => {
 	})
 }
 
-export const updateMenu = (id : string, data : Menu) : Promise<number> => {
+export const updateMenu = (id : string, data) : Promise<number> => {
 	return new Promise((resolve, reject) => {
 		menuDb.update({ _id: id }, data, {}, (err, numReplaced : number) => {
 			err ? reject(err) : resolve(numReplaced)

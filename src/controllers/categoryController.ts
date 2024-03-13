@@ -1,14 +1,14 @@
 import {categoryDb} from '../db'
 import type {Category} from '../types'
 
-export const createCategory = (data : Category) : Promise<Category> => {
+export const createCategory = (data) : Promise<Category> => {
 	return new Promise((resolve, reject) => {
 		categoryDb.insert(data, (err :any, doc:Category) => {
 			err ? reject(err) : resolve(doc)
 		})
 	})
 }
-export const updateCategory = (id : string, data : Category ) : Promise<number>=> {
+export const updateCategory = (id : string, data ) : Promise<number>=> {
 	return new Promise((resolve, reject) => {
 		categoryDb.update({ _id: id }, data, {}, (err : any, numReplaced : number) => {
 			err ? reject(err) : resolve(numReplaced)

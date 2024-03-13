@@ -496,9 +496,8 @@ Endpoit : `GET` `/activity/:orderid`
                     "prop" : "string" | undefined,
                     "from" : "any" | undefined,
                     "to" : "any" | undefined
-                }
+                }, 
             ],
-            ...
         }
     ]
 }
@@ -700,6 +699,112 @@ Endpoit : `POST` `/order/batch?arrayId=id1,id2,..,idn`
 }
 ```
 ---------
+## Get store info
+Endpoit : `GET` `/store`
+
+### Request Body
+```json
+{}
+```
+
+### Responses : status `200`
+```json
+{
+    "success" : true,
+    "data" : {
+        "name" : "", 
+        "address" : "", 
+        "footerNote" : "", 
+        "phone" : "", 
+        "mobilePhone": "", 
+        "bank" : "", 
+        "holder" : "", 
+        "norek" : ""
+    }
+        
+}
+```
+
+## edit store info
+Endpoit : `PATCH` `/store`
+
+### Request Body
+```json
+{
+    "name" : "", 
+    "address" : "", 
+    "footerNote" : "", 
+    "phone" : "", 
+    "mobilePhone": "", 
+    "bank" : "", 
+    "holder" : "", 
+    "norek" : ""
+}
+```
+
+### Responses : status `200`
+```json
+{
+    "success" : true,
+    "message" : "succes message"
+}
+```
+----
+## Get temp data
+Endpoit : `GET` `/temp/:orderId`
+
+### Request Body
+```json
+{}
+```
+
+### Responses : status `200`
+```json
+{
+    "success" : true,
+    "message" : "Order safe to edit"
+        
+}
+```
+
+## insert temp data
+Endpoit : `POST` `/temp`
+
+### Request Body
+```json
+{
+    "invoice" : "<ORDER_INVOICE>", 
+    "orderId" : "<ORDER_ID>",
+}
+```
+
+### Responses : status `200`
+```json
+{
+    "success" : true,
+    "data" : {
+        "_id" : "<RANDOM_ID>", 
+        "invoice" : "<ORDER_INVOICE>", 
+        "orderId" : "<ORDER_ID>",
+    }
+}
+```
+## delte temp data
+Endpoit : `DELETE` `/temp/:orderId`
+
+### Request Body
+```json
+{}
+```
+
+### Responses : status `200`
+```json
+{
+    "success" : true,
+    "message" : ""
+}
+```
+----
 
 # socket.io
 ##### Request

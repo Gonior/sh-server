@@ -17,7 +17,7 @@ const findOneUser = (id:string) : Promise<User> => {
 	})
 }
 
-const creatUser = (data : User) : Promise<User> => {
+const creatUser = (data) : Promise<User> => {
 	return new Promise((resolve, reject) => {
 		userDb.insert(data, (err : any, doc : User) => {
 			err ? reject(err) : resolve(doc)
