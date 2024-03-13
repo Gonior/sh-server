@@ -60,7 +60,7 @@
     "src//*.ts",
     "src//*.json",
     ".env"
-  ],
+, "pm2-control.ts"  ],
   "exclude": [
     "node_modules",
     "src/http",

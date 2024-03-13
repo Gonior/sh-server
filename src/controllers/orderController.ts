@@ -66,7 +66,7 @@ export const findAllOrdersByDate = (date:Date) => {
 	})
 }
 
-export const findOrdersById = (arrayId : string[]) : Promise<Order[]> => {
+export const findOrdersById = (arrayId : string[]) => {
 	return new Promise((resolve, reject) => {
 		orderDb
 			.find({
@@ -80,7 +80,7 @@ export const findOrdersById = (arrayId : string[]) : Promise<Order[]> => {
 	})
 }
 
-export const findOrderById = (_id : string): Promise<Order> => {
+export const findOrderById = (_id : string) => {
 	return new Promise((resolve, reject) => {
 		orderDb.findOne({ _id: _id },(err, docs) => {
 			err ? reject(err) : resolve(docs)
@@ -88,7 +88,7 @@ export const findOrderById = (_id : string): Promise<Order> => {
 	})
 }
 
-export const findOrdersNotPaid = () : Promise<Order[]>=> {
+export const findOrdersNotPaid = ()=> {
 	let date = new Date()
 	let startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
 	let endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59)

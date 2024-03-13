@@ -5,7 +5,7 @@ dotenv.config(envConfig)
 
 const authenticationToken = (req, res, next) => {
 	
-	const SECRET_KEY : string = process.env.SECRET_KEY || 'cnqo[ewiqq[ncouqoewiyqwebvq[ew0'
+	const SECRET_KEY : string = process.env.SECRET_KEY
 	const authHeader = req.headers['authorization']
 	const token = authHeader && authHeader.split(' ')[1]
 

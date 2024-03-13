@@ -15,6 +15,17 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        let id = req.params['id']
+        let user = await findOneUser(id)
+        if (user) res.status(200).json({success : true, data : user})
+        else res.status(404).json({success : false, message : 'Pengguna tidak dalam database'})
+    } catch (error) {
+        res.status(500).json({success : false, message : error.message})
+    }
+})
+
 router.post('/', body('name', 'Nama tidak boleh kosong').notEmpty().trim().escape(),body('passcode', "PIN Harus diisi!").notEmpty().isLength({min : 3}).withMessage("PIN Minimal terdiri dari 3 digit") ,async (req, res) => {
     try {
         const result = validationResult(req)

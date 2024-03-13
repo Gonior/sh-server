@@ -35,8 +35,6 @@ app.use('/activity',authenticationToken, activityRoute)
 app.use('/order',authenticationToken, orderRoute)
 app.use('/store',authenticationToken, storeInforRoute)
 app.use('/temp', authenticationToken, tempRoute )
-console.log(process.env.SECRET_KEY)
-console.log(__dirname)
 export default app
 
 

@@ -2,7 +2,7 @@
   "name": "sh-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/pm2-control.js",
   "bin": "./dist/server.js",
   "scripts": {
     "dev": "nodemon",
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/nedb": "^1.8.16",
+    "@seald-io/nedb": "^4.0.4",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -22,7 +22,6 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "nedb": "^1.8.0",
     "socket.io": "^4.7.4"
   },
   "pkg": {
@@ -42,6 +41,7 @@
     "@types/express": "^4.17.21",
     "@types/helmet": "^4.0.0",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/nedb": "^1.8.16",
     "@types/node": "^20.11.25",
     "cross-env": "^7.0.3",
     "node-windows": "^1.0.0-beta.8",

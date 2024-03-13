@@ -7,9 +7,8 @@ import authenticationToken from './middleware/socketMiddleware'
 import { createtOrder, updateOrder, findOrderById } from './controllers/orderController'
 import { insertActivities } from './controllers/activityController'
 import generateActivities from './utils/generateActivities'
-import { Record, Acitivity} from './types'
+import { Record, Acitivity, Order} from './types'
 import app from '.'
-import {} from 'node-windows'
 const PORT = process.env.PORT || 8000
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
@@ -51,14 +50,14 @@ io.on('connection', (socket) => {
 		try {
 			let oldData = await findOrderById(data.id)
 			if(oldData) {
-				if(oldData.status === "lunas" || oldData.status === "cancel") io.emit('error', "Pesanan yang sudah lunas/cancel tidak dapat diubah!")
+				if((oldData as Order).status === "lunas" || (oldData as Order).status === "cancel") io.emit('error', "Pesanan yang sudah lunas/cancel tidak dapat diubah!")
 				else {
 					let response = await updateOrder(data.id, data.order)
 					let order = {}
 					if (response > 0) {
 						let newData = await findOrderById(data.id)
 						if(newData) {
-							let activity = generateActivities(oldData, newData, (socket as any).decoded)
+							let activity = generateActivities(oldData as Order, newData as Order, (socket as any).decoded)
 							if(activity) {
 								await insertActivities(activity)
 							}

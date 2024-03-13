@@ -1,8 +1,17 @@
 
 
 import express from 'express'
-import { findEditing, deleteEditing, insertEditing } from '../controllers/tempController'
+import { findEditing, deleteEditing, insertEditing, findAllEditing } from '../controllers/tempController'
 const router = express.Router()
+
+router.get('/', async (req, res) => {
+	try {
+		let temp = await findAllEditing()
+		res.status(200).json({success : true, data : temp})
+	} catch (error) {
+		res.status(500).json({ success: false, message: error.message })
+	}
+})
 
 router.get('/:id', async (req, res) => {
 	
@@ -12,6 +21,7 @@ router.get('/:id', async (req, res) => {
 		if( !temp ) res.status(200).json({success : true, message : "Order safe to edit"})
 		else res.status(400).json({success : false, message : "Tidak dapat melakukan perubahan karena ada pengguna lain yang sedang melakukan perubahan."})
 	} catch (error) {
+
 		res.status(500).json({ success: false, message: error.message })
 	}
 })

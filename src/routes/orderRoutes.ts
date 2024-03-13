@@ -45,11 +45,11 @@ router.patch('/:id', async (req, res) => {
 		let {customer, _id, invoice, subtotal, user, tax, discount, grandtotal, orders, createdAt, updateAt, downpayment, totalitems, status  } = req.body
 		let id = req.params['id']
 		let oldData = await findOrderById(id)
-		if( oldData.status === "tunda" || oldData.status === "arsip") {
+		if( (oldData as Order).status === "tunda" || (oldData as Order).status === "arsip") {
 			let response = await updateOrder(id, {customer,_id, invoice, subtotal, tax, discount, grandtotal, orders, createdAt, updateAt, totalitems, status, downpayment, user })
 			
 			if (response > 0) {
-				let result : Order = await findOrderById(id)
+				let result = await findOrderById(id)
 				if( result ) return res.status(200).json({success : true, data : result})
 			}
 		}
@@ -88,7 +88,7 @@ router.post('/batch', async (req, res) => {
 		if(arrayId.length > 0) {
 			for (const id of arrayId) {
 				let editing = await findEditing(id)
-				if( editing ) errorInvoice.push(editing.invoice)
+				if( editing ) errorInvoice.push((editing as Order).invoice)
 			}
 			if (errorInvoice.length > 0) {
 				res.status(400).json({ success: false, message: `Pesanan invoice ${errorInvoice.join(', ')} tidak dapat digabungkan karenan pengguna lain yang sedang melakukan perubahan.` })

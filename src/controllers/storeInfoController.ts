@@ -3,7 +3,7 @@ import type {Store} from '../types'
 import {DEFAULT_STORE_INFO} from '../types/constant'
 const id = DEFAULT_STORE_INFO._id
 
-export const findStoreInfo = () : Promise<Store> => {
+export const findStoreInfo = () => {
 	return new Promise((resolve, reject) => {
 		storeInfoDb.findOne({_id : id}, (err:any, doc) => {
 			err ? reject(err) : resolve(doc)
