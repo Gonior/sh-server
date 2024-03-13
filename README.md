@@ -471,6 +471,19 @@ Endpoit : `GET` `/activity/:orderid`
 {}
 ```
 
+```typescript
+
+interface Record {
+    action : "Mengubah" | "Membuat" | "Menghapus" | "Menambahkan",
+    value : any
+    prefix? : 'pesanan' | 'menu' | 'catatan' | string
+    props? : string
+    item? : 'pesanan' | string
+}
+
+
+```
+
 ### Responses : status `200`
 ```json
 {
@@ -485,19 +498,7 @@ Endpoit : `GET` `/activity/:orderid`
                 "name" : "string",
                 "passcode" : "string"
             },
-            "records" : [
-                {
-                    "action" : "create" | "add" | "delete" | "update",
-                    "item": "string" | undefined,
-                    "name" : "string" | undefined,
-                    "qty" : "number" | undefined,
-                    "type" : "menu" | "note",
-                    "forId" : "string" | undefined
-                    "prop" : "string" | undefined,
-                    "from" : "any" | undefined,
-                    "to" : "any" | undefined
-                }, 
-            ],
+            "records" : "Record[]",
         }
     ]
 }
