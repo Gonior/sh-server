@@ -1,7 +1,7 @@
 import express from 'express'
 import { createCategory, deleteCategory, findAllCategories, searchCategory, updateCategory} from '../controllers/categoryController'
 import { searchMenuQuery } from '../controllers/menuController'
-// import { Category } from '../types'
+import { body, validationResult } from 'express-validator'
 import { DEFAULT_CATEGORY } from '../types/constant'
 const router = express.Router()
 
@@ -14,12 +14,30 @@ router.get('/', async (req, res) => {
 		res.status(500).json({ success: false, message: error.message })
 	}
 })
-router.post('/', async (req, res) => {
+
+
+router.get('/:id', async (req, res) => {
+	//done
+	try {
+		let id = req.params['id']
+		let category = await searchCategory(id)
+		if( category ) res.status(200).json({success : true, data : category})
+		else res.status(404).json({success : false, message : "Kategori tidak ada dalam database!"})
+	} catch (error) {
+		res.status(500).json({ success: false, message: error.message })
+	}
+})
+router.post('/',body('name',"Nama Kategori tidak boleh kosong").notEmpty().trim(''),  async (req, res) => {
 	// done
 	try {
-		let {name, printer} = req.body
-		let category = await createCategory({name, printer})
-		if (category) res.status(200).json({ success: true, data: category })
+		const result = validationResult(req)
+		if (result.isEmpty()) {
+			let {name, printer} = req.body
+			name.trim()
+			if(!printer) printer = ""
+			let category = await createCategory({name, printer})
+			if (category) res.status(200).json({ success: true, data: category })
+		} else res.status(400).json({ success: false, message: result.array()[0].msg})
 	} catch (error) {
 		res.status(500).json({ success: false, message: error.message })
 	}
@@ -58,7 +76,7 @@ router.delete('/:id', async (req, res) => {
 		})
 		
         let category = await searchCategory(id)
-        if(!category) return res.status(400).json({success: false,message: 'Kategori tidak ada dalam database'})
+        if(!category) return res.status(404).json({success: false,message: 'Kategori tidak ada dalam database'})
 
         let response = await deleteCategory(id)
         if (response > 0)

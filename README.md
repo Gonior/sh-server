@@ -381,7 +381,7 @@ Endpoit : `POST` `/menu`
 }
 ```
 
-## Edit Category 
+## Edit Menu 
 Endpoit : `PATCH` `/menu/:id`
 ### Request Header 
 ```javascript

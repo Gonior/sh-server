@@ -3,6 +3,7 @@ import express from 'express'
 import { findAllUsers, creatUser, deleteUser , findOneUser} from '../controllers/userController'
 import { User } from '../types'
 import { ADMIN } from '../types/constant'
+import { body, validationResult } from 'express-validator'
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -14,18 +15,25 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', body('name', 'Nama tidak boleh kosong').notEmpty().trim().escape(),body('passcode', "PIN Harus diisi!").notEmpty().isLength({min : 3}).withMessage("PIN Minimal terdiri dari 3 digit") ,async (req, res) => {
     try {
-		let {name, passcode }= req.body
-		let user = await creatUser({name, passcode})
-		if (user) res.status(200).json({ success: true, data: user })
-        else res.status(400).json({ success: false, message: 'Tidak dapat membuat pengguna baru'})
+        const result = validationResult(req)
+        if(result.isEmpty()) {
+            let {name, passcode }= req.body
+            let user = await creatUser({name, passcode})
+            if (user) res.status(200).json({ success: true, data: user })
+            else res.status(400).json({ success: false, message: 'Tidak dapat membuat pengguna baru'})
+        } else res.status(400).json({ success: false, message: 'Gagal Menambahkan Pengguna', error : result.array()})
+		
 	} catch (error) {
 		let message = ''
-		if (error.errorType === 'uniqueViolated')
+        let statusCode = 500
+		if (error.errorType === 'uniqueViolated') {
 			message = `PIN tersebut sudah digunakan! gunakan PIN lain`
+            statusCode = 400
+        }
 		else message = error.message
-		res.status(500).json({ success: false, message: message })
+		res.status(statusCode).json({ success: false, message: message })
 	}
 })
 

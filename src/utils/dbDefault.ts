@@ -4,7 +4,7 @@ import {ADMIN, DEFAULT_CATEGORY, DEFAULT_STORE_INFO} from '../types/constant'
 const init = () => {
     orderDb.ensureIndex({ fieldName: 'createdAt', expireAfterSeconds: 2592000 })
     activityDb.ensureIndex({ fieldName: 'createdAt', expireAfterSeconds: 2592000 })
-    menuDb.ensureIndex({ fieldName: 'upc', unique: true })
+    menuDb.ensureIndex({ fieldName: 'upc', unique: true, sparse : true })
     orderDb.ensureIndex({ fieldName: 'invoice', unique: true })
     userDb.ensureIndex({ fieldName: 'passcode', unique: true })
     tempDb.ensureIndex({ fieldName: 'orderId', unique: true })
