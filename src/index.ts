@@ -11,6 +11,8 @@ import activityRoute from './routes/activityRoutes'
 import storeInforRoute from './routes/storeInfoRoutes'
 import tempRoute from './routes/tempRoutes'
 import authenticationToken from './middleware/authToken'
+import morgan from 'morgan'
+import moment from 'moment-timezone'
 import dbDefault from './utils/dbDefault'
 import {envConfig} from './types/constant'
 dotenv.config(envConfig)
@@ -20,7 +22,13 @@ try {
 } catch (error) {
     console.log(error)
 }
+
 app.use(helmet())
+morgan.token('date', (req, res, tz) => {
+    return moment().tz(tz as string).format('YYYY/MM/DD HH:mm:ss');
+})
+morgan.format('myFormat', '[:date[Asia/Jakarta]] ":method :url" :status :res[content-length] - :response-time ms')
+app.use(morgan('myFormat'))
 app.use(cors())
 app.use(express.json())
 app.get('/', (req, res) => {
