@@ -3,7 +3,7 @@ import {tempDb} from '../db'
 export const insertEditing = <T extends {invoice : 'string', orderId : string, _id? : string}>(data : T) : Promise<T> => {
 	return new Promise((resolve, reject) => {
 		tempDb.insert(data, (err, doc : T) => {
-			err ? reject(err) : resolve(doc)
+			err ? reject(err) : resolve(doc as T)
 		})
 	})
 }

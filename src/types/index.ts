@@ -27,6 +27,7 @@ export interface Menu {
     category : string | Category,
     price : number
 }
+
 export interface MenuOrders {
     _id : string,
     name : string,
@@ -41,19 +42,21 @@ export interface MenuOrders {
 }
 export interface Order {
     _id : string,
-    user : User,
-    customer : string,
     invoice : string,
-    subtotal : number,
-    tax : number,
     createdAt : Date,
-    discount : number,
-    downpayment : number,
-    grandtotal : number,
-    totalitems : number,
     updateAt : Date,
     status : Status
+    user : User,
+    customer : string,
     orders : MenuOrders[]
+    totalitems : number,
+    subtotal : number,
+    discount : number,
+    tax : number,
+    downpayment : number,
+    grandtotal : number,
+    cash : number
+    change : number
 }
 
 export interface Record {

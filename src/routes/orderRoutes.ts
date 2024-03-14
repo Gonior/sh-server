@@ -42,11 +42,12 @@ router.get('/notPaid', async (req, res) => {
 router.patch('/:id', async (req, res) => {
 	try {
 		let message = "Tidak dapat merperbarui pesanan"
-		let {customer, _id, invoice, subtotal, user, tax, discount, grandtotal, orders, createdAt, updateAt, downpayment, totalitems, status  } = req.body
+		let {_id, invoice, user, createdAt, updateAt,customer,status, orders, totalitems, subtotal, discount, tax, downpayment,  grandtotal, cash, change } = req.body
+
 		let id = req.params['id']
 		let oldData = await findOrderById(id)
 		if( (oldData as Order).status === "tunda" || (oldData as Order).status === "arsip") {
-			let response = await updateOrder(id, {customer,_id, invoice, subtotal, tax, discount, grandtotal, orders, createdAt, updateAt, totalitems, status, downpayment, user })
+			let response = await updateOrder(id, {customer,_id, invoice, subtotal, tax, discount, grandtotal, orders, createdAt, updateAt, totalitems, status, downpayment, user ,cash, change})
 			
 			if (response > 0) {
 				let result = await findOrderById(id)
