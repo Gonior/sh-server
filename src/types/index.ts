@@ -8,38 +8,29 @@ export interface User {
     passcode : string
 }
 
-export interface Printer {
-    _id : string,
-    name : string,
-    connectivity : Connectivity,
-    type : string
-}
+
 
 export interface Category {
-    _id : string | undefined,
+    _id? : string,
     name : string,
-    printer : Printer | undefined | string
+    printer : string
 }
+
 export interface Menu {
-    _id : string,
-    name : string,
-    upc : number | null,
-    category : string | Category,
-    price : number
+    _id : string
+    name : string
+    upc? : number
+    category? : string | Category
+    price? : number
+	forId? :string
 }
 
-export interface MenuOrders {
-    _id : string,
-    name : string,
-    upc : number | null,
-    category : string | Category,
-    price : number,
-    total : number,
-    forId : string | undefined,
-    qty : number,
-    printed : undefined | boolean
-
+export interface MenuOrder extends Menu {
+    qty? : number
+    total? : number
+    printed : boolean
 }
+
 export interface Order {
     _id : string,
     invoice : string,
@@ -48,7 +39,7 @@ export interface Order {
     status : Status
     user : User,
     customer : string,
-    orders : MenuOrders[]
+    orders : MenuOrder[]
     totalitems : number,
     subtotal : number,
     discount : number,

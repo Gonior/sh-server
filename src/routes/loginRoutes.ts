@@ -2,9 +2,18 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import jwt from 'jsonwebtoken'
 dotenv.config()
-import { loginUser} from '../controllers/userController'
+import { loginUser, findAllUsers} from '../controllers/userController'
 
 const router = express.Router()
+
+router.get('/', async (req, res) => {
+    try {
+        let users = await findAllUsers()
+        res.status(200).json({success : true, data : users})
+    } catch (error) {
+        res.status(500).json({success : false, message : error.message})
+    }
+})
 
 router.post('/',  async (req, res) => {
 	const SECRET_KEY = process.env.SECRET_KEY

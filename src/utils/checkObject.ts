@@ -1,6 +1,6 @@
-import {MenuOrders, Order, Record} from '../types'
+import {MenuOrder, Order, Record} from '../types'
 
-function checkObject<T extends MenuOrders|Order> (obj1 :T, obj2 : T, prop : string) : Record|undefined {
+function checkObject<T extends MenuOrder|Order> (obj1 :T, obj2 : T, prop : string) : Record|undefined {
 	let propname : string
 	switch (prop) {
 		case "qty":propname = "Kuantitas"
