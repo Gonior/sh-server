@@ -1,5 +1,5 @@
 import {join} from 'path'
-import {User, Store} from './index'
+import {User, Store, Tax, BankAccount, StoreConfig} from './index'
 
 export const DEFAULT_CATEGORY = {
     _id : 'defaultcategory',
@@ -13,16 +13,31 @@ export const ADMIN : User = {
     passcode : '123456'
 }
 
-export const DEFAULT_STORE_INFO : Store = {
-    _id : 'storeid',
-    name : 'Nama Toko Anda',
-    address : 'Alamat Toko Anda',
-    phone : '021-23456789',
-    mobilePhone : '08123456789',
-    footerNote : 'Terima Kasih',
-    bank : 'BANK KOTOK',
+const DEFAULT_STORE_INFO : Store = {
+    name: 'Nama Toko Anda',
+    address: 'Alamat Toko Anda',
+    phone: '0221234567',
+    mobilePhone: '081234567890',
+    footerNote: 'Terimakasih atas kunjunganya',
+}
+
+const DEFAULT_BANK_INFO : BankAccount = {
+    bank : 'Bank Kotok',
     holder : 'Nama Anda',
-    norek : '1234567890'
+    accountNumber : '1234567890'
+}
+
+const DEFAULT_TAX_INFO : Tax = {
+    checked: false,
+    name: '',
+    value: 0
+}
+
+export const DEFAULT_STORE : StoreConfig = {
+    _id: 'storeid',
+    storeInfo: DEFAULT_STORE_INFO,
+    taxInfo: DEFAULT_TAX_INFO,
+    bankInfo: DEFAULT_BANK_INFO
 }
 
 export const envConfig = {

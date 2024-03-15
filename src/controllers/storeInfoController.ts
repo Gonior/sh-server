@@ -1,7 +1,7 @@
 import { storeInfoDb } from '../db'
 import type {Store} from '../types'
-import {DEFAULT_STORE_INFO} from '../types/constant'
-const id = DEFAULT_STORE_INFO._id
+import {DEFAULT_STORE} from '../types/constant'
+const id = DEFAULT_STORE._id
 
 export const findStoreInfo = () => {
 	return new Promise((resolve, reject) => {

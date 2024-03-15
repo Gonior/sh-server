@@ -1,4 +1,4 @@
-type Connectivity = "local" | 'network'
+
 type Action = 'Membuat' | 'Menghapus' | 'Menambahkan' | 'Mengubah'
 type Status = 'tunda' | 'lunas' | 'arsip' | 'cancel'
 
@@ -66,15 +66,30 @@ export interface Acitivity {
     orderId : string
 }
 
+
 export interface Store {
-    _id : 'storeid'
     name : string
     address : string
     phone : string
     mobilePhone? : string
     footerNote : string
-    norek : string | number
+}
+
+export interface BankAccount {
+    accountNumber : string | number
     holder : string
     bank : string
-    
+}
+
+export interface Tax {
+    checked : boolean
+    name : string
+    value : number
+}
+
+export interface StoreConfig {
+    _id : 'storeid'
+    storeInfo : Store
+    taxInfo : Tax
+    bankInfo : BankAccount
 }

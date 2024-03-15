@@ -1,5 +1,5 @@
 import {categoryDb, userDb, storeInfoDb, orderDb, activityDb, menuDb, tempDb} from '../db'
-import {ADMIN, DEFAULT_CATEGORY, DEFAULT_STORE_INFO} from '../types/constant'
+import {ADMIN, DEFAULT_CATEGORY, DEFAULT_STORE} from '../types/constant'
 
 const init = () => {
     orderDb.ensureIndex({ fieldName: 'createdAt', expireAfterSeconds: 2592000 })
@@ -15,8 +15,8 @@ const init = () => {
     userDb.findOne({ _id: ADMIN._id }, (err, doc) => {
         if (!doc) userDb.insert(ADMIN)
     })
-    storeInfoDb.findOne({ _id: DEFAULT_STORE_INFO._id}, (err, doc) => {
-        if (!doc) storeInfoDb.insert(DEFAULT_STORE_INFO)
+    storeInfoDb.findOne({ _id: DEFAULT_STORE._id}, (err, doc) => {
+        if (!doc) storeInfoDb.insert(DEFAULT_STORE)
     })
 }
 
