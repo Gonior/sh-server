@@ -1,5 +1,6 @@
 import express from 'express'
 import {findStoreInfo, updateStoreInfo } from '../controllers/storeInfoController'
+import { Store, StoreConfig } from 'types'
 const router = express.Router()
 
 router.get('/',  async (req, res) => {
@@ -14,8 +15,8 @@ router.get('/',  async (req, res) => {
 
 router.patch('/',  async (req, res) => {
 	try {
-		let {name, address, footerNote, phone, mobilePhone, bank, holder, norek} = req.body
-		let response = await updateStoreInfo({name, address, footerNote, phone, mobilePhone, bank, holder, norek})
+		let { _id, bankInfo, storeInfo,taxInfo} = req.body as StoreConfig
+		let response = await updateStoreInfo({ _id, bankInfo, storeInfo,taxInfo})
 		if (response > 0)
 			res.status(200).json({
 				success: true,
