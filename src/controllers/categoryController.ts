@@ -18,10 +18,11 @@ export const updateCategory = (id : string, data ) : Promise<number>=> {
 
 export const findAllCategories = () : Promise<Category[]> => {
 	return new Promise((resolve, reject) => {
-		categoryDb.find({}, async (err : any, docs : Category[]) => {
-			err ? reject(err) : resolve(docs)
+		categoryDb.find({}).sort({name : 1}).exec((err : Error, docs) => {
+			err ? reject(err) : resolve(docs as Category[])
 		})
 	})
+	// categoryDb.findAsync({}).sort({name : 1})
 }
 
 // export const searchCategory = (n : string) : Promise<Category[]|any> => {

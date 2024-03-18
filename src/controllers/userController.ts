@@ -3,8 +3,8 @@ import type { User } from '../types'
 
 const findAllUsers = () : Promise<User[]> => {
 	return new Promise((resolve, reject) => {
-		userDb.find({}, (err: any, docs: User[]) => {
-			err ? reject(err) : resolve(docs)
+		userDb.find({}).sort({name : 1}).exec((err : Error, docs) => {
+			err ? reject(err) : resolve(docs as User[])
 		})
 	})
 }

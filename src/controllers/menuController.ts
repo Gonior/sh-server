@@ -26,10 +26,10 @@ export const createMenu = (data) : Promise<Menu> => {
 	})
 }
 
-export const findAllMenus = () : Promise<Menu[]|any>=> {
+export const findAllMenus = () : Promise<Menu[]>=> {
 	return new Promise((resolve, reject) => {
-		menuDb.find({}, (err:any, docs:Menu[]) => {
-			err ? reject(err) : resolve(docs)
+		menuDb.find({}).sort({name : 1}).exec((err : Error, docs) => {
+			err ? reject(err) : resolve(docs as Menu[])
 		})
 	})
 }
