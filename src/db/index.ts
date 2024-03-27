@@ -37,6 +37,11 @@ const storeInfoDb = new Datastore({
     autoload: true,
 })
 
+const sortFormatDb = new Datastore({
+    filename: path.join(process.cwd(),'/database/sortFormat.db'),
+    autoload: true,
+})
+
 export {
     orderDb,
     userDb,
@@ -44,5 +49,6 @@ export {
     categoryDb,
     activityDb,
     tempDb,
-    storeInfoDb
+    storeInfoDb,
+    sortFormatDb
 }

@@ -35,7 +35,7 @@ export interface Order {
     _id : string,
     invoice : string,
     createdAt : Date,
-    updateAt : Date,
+    updatedAt : Date,
     status : Status
     user : User,
     customer : string,

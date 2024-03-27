@@ -1,4 +1,4 @@
-import {categoryDb, userDb, storeInfoDb, orderDb, activityDb, menuDb, tempDb} from '../db'
+import {categoryDb, userDb, storeInfoDb, orderDb, activityDb, menuDb, tempDb, sortFormatDb} from '../db'
 import {ADMIN, DEFAULT_CATEGORY, DEFAULT_STORE} from '../types/constant'
 
 const init = () => {
@@ -17,6 +17,10 @@ const init = () => {
     })
     storeInfoDb.findOne({ _id: DEFAULT_STORE._id}, (err, doc) => {
         if (!doc) storeInfoDb.insert(DEFAULT_STORE)
+    })
+
+    sortFormatDb.findOne({ _id: 'sortFormatId'}, (err, doc) => {
+        if (!doc) sortFormatDb.insert({_id : "sortFormatId", values : [{value:"unsorted", id : "a0206a03-921a-489c-befd-449f5b4700a1"}]})
     })
 }
 

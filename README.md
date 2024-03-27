@@ -6,7 +6,7 @@ Endpoit : `POST` `/login`
 ### Request Body
 ```json
 {
-    "passcode" : "string" // required
+    "passcode" : "string" 
 }
 ```
 

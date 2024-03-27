@@ -2,7 +2,7 @@
   "name": "sh-server",
   "version": "1.1.0",
   "description": "",
-  "main": "dist/pm2-control.js",
+  "main": "dist/server.js",
   "bin": "./dist/server.js",
   "scripts": {
     "dev": "nodemon",

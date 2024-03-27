@@ -9,6 +9,7 @@ import menuRoute from './routes/menuRoutes'
 import orderRoute from './routes/orderRoutes'
 import activityRoute from './routes/activityRoutes'
 import storeInforRoute from './routes/storeInfoRoutes'
+import sortFormatRoute from './routes/sortFormatRoutes'
 import tempRoute from './routes/tempRoutes'
 import authenticationToken from './middleware/authToken'
 import morgan from 'morgan'
@@ -42,6 +43,7 @@ app.use('/menu',authenticationToken, menuRoute)
 app.use('/activity',authenticationToken, activityRoute)
 app.use('/order',authenticationToken, orderRoute)
 app.use('/store',authenticationToken, storeInforRoute)
+app.use('/sortFormat',authenticationToken, sortFormatRoute)
 app.use('/temp', authenticationToken, tempRoute )
 export default app
 
