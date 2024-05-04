@@ -4,7 +4,7 @@ import {User, Store, Tax, BankAccount, StoreConfig} from './index'
 export const DEFAULT_CATEGORY = {
     _id : 'defaultcategory',
     name : 'Umum',
-    printer : ''
+    printer : []
 }
 
 export const ADMIN : User = {
